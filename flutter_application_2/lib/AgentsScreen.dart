@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
+import 'dart:core';
+import 'package:shimmer/shimmer.dart';
 import 'dart:math';
 import 'package:flutter_application_2/GuideScreen.dart';
 import 'package:flutter_application_2/ValoModel.dart';
@@ -23,6 +26,7 @@ class _AgentScreenState extends State<AgentScreen> {
 
     for (var eachAgent in jsonData["data"]) {
       final agent = Agent(
+        isPlayableCharacter: eachAgent["isPlayableCharacter"],
         fullPortraitV2: eachAgent["fullPortraitV2"],
         displayIconSmall: eachAgent["displayIconSmall"],
         description: eachAgent["description"],
@@ -62,13 +66,14 @@ class _AgentScreenState extends State<AgentScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return GridView.builder(
-                        itemCount: agents.length,
+                        itemCount: 21,
                         itemBuilder: (context, index) {
-                          return Card(
-                            shape: Border.all(
-                                width: 1.3,
-                                color: const Color.fromARGB(255, 246, 68, 83)),
-                            child: Container(
+                          if (agents[index].isPlayableCharacter) {
+                            return Card(
+                              shape: Border.all(
+                                  width: 1.3,
+                                  color:
+                                      const Color.fromARGB(255, 246, 68, 83)),
                               child: Column(children: [
                                 Text(
                                   textAlign: TextAlign.center,
@@ -78,12 +83,39 @@ class _AgentScreenState extends State<AgentScreen> {
                                       .titleLarge
                                       ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
-                                Image(
-                                    image: NetworkImage(
-                                        agents[10].fullPortraitV2.toString()))
+                                Expanded(
+                                  child: Image(
+                                      fit: BoxFit.fitHeight,
+                                      image: NetworkImage(agents[index]
+                                          .fullPortraitV2
+                                          .toString())),
+                                )
                               ]),
-                            ),
-                          );
+                            );
+                          } else {
+                            return Card(
+                              shape: Border.all(
+                                  width: 1.3,
+                                  color:
+                                      const Color.fromARGB(255, 246, 68, 83)),
+                              child: Column(children: [
+                                Text(
+                                  textAlign: TextAlign.center,
+                                  agents[index].displayName.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                ),
+                                Expanded(
+                                  child: Image(
+                                      fit: BoxFit.fitHeight,
+                                      image: NetworkImage(
+                                          agents[8].fullPortraitV2.toString())),
+                                )
+                              ]),
+                            );
+                          }
                         },
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -93,9 +125,11 @@ class _AgentScreenState extends State<AgentScreen> {
                           crossAxisSpacing: 10,
                         ));
                   } else {
-                    return const Center(
-                      child: CircularProgressIndicator(color: Colors.white),
-                    );
+                    return ListView.builder(
+                        itemCount: 6,
+                        itemBuilder: (context, index) {
+                          return const AgentsShimmer();
+                        });
                   }
                 },
               ),
@@ -107,114 +141,40 @@ class _AgentScreenState extends State<AgentScreen> {
   }
 }
 
-/**
-Future<ValoModel> getAgentApi() async {
-    final response =
-        await http.get(Uri.parse("https://valorant-api.com/v1/agents"));
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body.toString());
-      return ValoModel.fromJson(data);
-    } else {
-      throw Exception("error");
-    }
-  }
+class AgentsShimmer extends StatelessWidget {
+  const AgentsShimmer({
+    super.key,
+  });
 
-
-  List<Agent> agents = [];
-
-  Future getAgent() async {
-    var response =
-        await http.get(Uri.parse("https://valorant-api.com/v1/agents"));
-    var jsonData = jsonDecode(response.body);
-
-    for (var eachAgent in jsonData["data"]) {
-      final agent = Agent(
-        displayIconSmall: eachAgent["displayIconSmall"],
-        description: eachAgent["description"],
-        displayName: eachAgent["displayName"],
-      );
-      agents.add(agent);
-    }
-  }
- Container(
-                              decoration: BoxDecoration(
-                                  color: const Color.fromARGB(50, 0, 0, 0),
-                                  border: Border.all(
-                                      width: 1.3,
-                                      color: const Color.fromARGB(
-                                          255, 246, 68, 83))),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      agents[index].displayName.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('NBA'),
-        ),
-        body: FutureBuilder(
-          future: getAgent(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return Padding(
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade700,
+      highlightColor: Colors.grey.shade300,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  borderOnForeground: true,
-                  color: Colors.red[500],
-                  child: ListView.builder(
-                    itemCount: agents.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        onTap: () {},
-                        minVerticalPadding: 10,
-                        minLeadingWidth: 5,
-                        title: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            agents[index].displayName,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        leading: Image.network(agents[index].displayIconSmall),
-                        subtitle: Text(
-                          agents[index].description,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                        ),
-                      );
-                    },
-                  ),
+                child: Container(
+                  color: Colors.black26,
+                  height: 320,
+                  width: 164,
                 ),
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ));
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  color: Colors.black26,
+                  height: 320,
+                  width: 164,
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
-   */
