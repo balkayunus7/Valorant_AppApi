@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:core';
+import 'package:flutter_application_2/AgentDetailScreen.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:math';
 import 'package:flutter_application_2/GuideScreen.dart';
@@ -26,6 +27,7 @@ class _AgentScreenState extends State<AgentScreen> {
 
     for (var eachAgent in jsonData["data"]) {
       final agent = Agent(
+        background: eachAgent["background"],
         isPlayableCharacter: eachAgent["isPlayableCharacter"],
         fullPortraitV2: eachAgent["fullPortraitV2"],
         displayIconSmall: eachAgent["displayIconSmall"],
@@ -69,28 +71,48 @@ class _AgentScreenState extends State<AgentScreen> {
                         itemCount: 21,
                         itemBuilder: (context, index) {
                           if (agents[index].isPlayableCharacter) {
-                            return Card(
-                              shape: Border.all(
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AgentDetail(
+                                          background: agents[index]
+                                              .background
+                                              .toString(),
+                                          fullPortraitV2: agents[index]
+                                              .fullPortraitV2
+                                              .toString(),
+                                          displayName: agents[index]
+                                              .displayName
+                                              .toString()),
+                                    ));
+                              },
+                              child: Card(
+                                elevation: 0,
+                                color: Colors.transparent,
+                                shape: Border.all(
                                   width: 1.3,
-                                  color:
-                                      const Color.fromARGB(255, 246, 68, 83)),
-                              child: Column(children: [
-                                Text(
-                                  textAlign: TextAlign.center,
-                                  agents[index].displayName.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                  color: const Color.fromARGB(255, 246, 68, 83),
                                 ),
-                                Expanded(
-                                  child: Image(
-                                      fit: BoxFit.fitHeight,
-                                      image: NetworkImage(agents[index]
-                                          .fullPortraitV2
-                                          .toString())),
-                                )
-                              ]),
+                                child: Column(children: [
+                                  Text(
+                                    textAlign: TextAlign.center,
+                                    agents[index].displayName.toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  Expanded(
+                                    child: Image(
+                                        fit: BoxFit.fitHeight,
+                                        image: NetworkImage(agents[index]
+                                            .fullPortraitV2
+                                            .toString())),
+                                  )
+                                ]),
+                              ),
                             );
                           } else {
                             return Card(

@@ -4,9 +4,11 @@ class Agent {
   final String displayName;
   final String description;
   final bool isPlayableCharacter;
+  var background;
   var fullPortraitV2;
   final String displayIconSmall;
   Agent({
+    required this.background,
     required this.isPlayableCharacter,
     required this.fullPortraitV2,
     required this.displayIconSmall,

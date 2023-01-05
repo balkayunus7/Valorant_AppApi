@@ -24,9 +24,9 @@ class MyApp extends StatelessWidget {
           backgroundColor: Color.fromARGB(177, 19, 19, 22),
         ),
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: Color.fromARGB(128, 35, 59, 85),
+        scaffoldBackgroundColor: Color.fromARGB(255, 19, 31, 45),
       ),
-      home: const GuidePage(),
+      home: const AgentScreen(),
     );
   }
 }
