@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
 import 'dart:core';
 import 'package:flutter_application_2/AgentDetailScreen.dart';
 import 'package:shimmer/shimmer.dart';
-import 'dart:math';
 import 'package:flutter_application_2/GuideScreen.dart';
 import 'package:flutter_application_2/ValoModel.dart';
 import 'package:flutter/material.dart';
@@ -18,24 +15,22 @@ class AgentScreen extends StatefulWidget {
 }
 
 class _AgentScreenState extends State<AgentScreen> {
-  List<Agent> agents = [];
+  List agentsList = [];
+  Map? responseData;
+
+  @override
+  void initState() {
+    super.initState();
+    getAgentApi;
+  }
 
   Future getAgentApi() async {
-    final response =
+    http.Response response =
         await http.get(Uri.parse("https://valorant-api.com/v1/agents"));
-    var jsonData = jsonDecode(response.body);
-
-    for (var eachAgent in jsonData["data"]) {
-      final agent = Agent(
-        background: eachAgent["background"],
-        isPlayableCharacter: eachAgent["isPlayableCharacter"],
-        fullPortraitV2: eachAgent["fullPortraitV2"],
-        displayIconSmall: eachAgent["displayIconSmall"],
-        description: eachAgent["description"],
-        displayName: eachAgent["displayName"],
-      );
-      agents.add(agent);
-    }
+    responseData = jsonDecode(response.body);
+    setState(() {
+      agentsList = responseData?["data"];
+    });
   }
 
   @override
@@ -66,49 +61,62 @@ class _AgentScreenState extends State<AgentScreen> {
               child: FutureBuilder(
                 future: getAgentApi(),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
+                  if (agentsList.isNotEmpty) {
                     return GridView.builder(
-                        itemCount: 21,
+                        itemCount: agentsList.length,
                         itemBuilder: (context, index) {
-                          if (agents[index].isPlayableCharacter) {
+                          if (agentsList[index]["isPlayableCharacter"]) {
                             return InkWell(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => AgentDetail(
-                                          background: agents[index]
-                                              .background
+                                          abilityDesc: agentsList[index]["abilities"]
+                                                  [1]["description"]
                                               .toString(),
-                                          fullPortraitV2: agents[index]
-                                              .fullPortraitV2
+                                          abilityIcon: agentsList[index]
+                                              ["abilities"][1]["displayIcon"],
+                                          abilityName: agentsList[index]["abilities"]
+                                                  [1]["displayName"]
                                               .toString(),
-                                          displayName: agents[index]
-                                              .displayName
-                                              .toString()),
+                                          description: agentsList[index]
+                                              ["description"],
+                                          background: agentsList[index]
+                                              ["background"],
+                                          fullPortraitV2: agentsList[index]
+                                              ["fullPortraitV2"],
+                                          roleName: agentsList[index]["role"]
+                                              ["displayName"],
+                                          developerName: agentsList[index]["developerName"],
+                                          displayName: agentsList[index]["displayName"]),
                                     ));
                               },
                               child: Card(
                                 elevation: 0,
                                 color: Colors.transparent,
                                 shape: Border.all(
-                                  width: 1.3,
-                                  color: const Color.fromARGB(255, 246, 68, 83),
-                                ),
+                                    width: 1.3,
+                                    color:
+                                        const Color.fromARGB(255, 246, 68, 83)),
                                 child: Column(children: [
                                   Text(
                                     textAlign: TextAlign.center,
-                                    agents[index].displayName.toString(),
+                                    agentsList[index]["displayName"].toString(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleLarge
-                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color.fromARGB(
+                                              255, 246, 68, 83),
+                                        ),
                                   ),
                                   Expanded(
                                     child: Image(
                                         fit: BoxFit.fitHeight,
-                                        image: NetworkImage(agents[index]
-                                            .fullPortraitV2
+                                        image: NetworkImage(agentsList[index]
+                                                ["fullPortraitV2"]
                                             .toString())),
                                   )
                                 ]),
@@ -116,6 +124,8 @@ class _AgentScreenState extends State<AgentScreen> {
                             );
                           } else {
                             return Card(
+                              elevation: 0,
+                              color: Colors.transparent,
                               shape: Border.all(
                                   width: 1.3,
                                   color:
@@ -123,17 +133,22 @@ class _AgentScreenState extends State<AgentScreen> {
                               child: Column(children: [
                                 Text(
                                   textAlign: TextAlign.center,
-                                  agents[index].displayName.toString(),
+                                  agentsList[8]["displayName"].toString(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge
-                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: const Color.fromARGB(
+                                            255, 246, 68, 83),
+                                      ),
                                 ),
                                 Expanded(
                                   child: Image(
                                       fit: BoxFit.fitHeight,
-                                      image: NetworkImage(
-                                          agents[8].fullPortraitV2.toString())),
+                                      image: NetworkImage(agentsList[8]
+                                              ["fullPortraitV2"]
+                                          .toString())),
                                 )
                               ]),
                             );
