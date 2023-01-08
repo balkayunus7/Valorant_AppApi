@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/AgentsScreen.dart';
+import 'package:flutter_application_2/Agents/AgentsScreen.dart';
 import 'package:flutter_application_2/GuideScreen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({
+class MyApp extends StatelessWidget with _Utilites {
+  MyApp({
     Key? key,
   }) : super(key: key);
 
@@ -18,15 +18,20 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          shape: StadiumBorder(),
+        appBarTheme: AppBarTheme(
+          shape: const StadiumBorder(),
           elevation: 0,
-          backgroundColor: Color.fromARGB(177, 19, 19, 22),
+          backgroundColor: _Utilites().appBarBack,
         ),
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: Color.fromARGB(255, 19, 31, 45),
+        scaffoldBackgroundColor: _Utilites().scaffoldback,
       ),
       home: const GuidePage(),
     );
   }
+}
+
+class _Utilites {
+  final Color appBarBack = Color.fromARGB(177, 19, 19, 22);
+  final Color scaffoldback = Color.fromARGB(255, 19, 31, 45);
 }
