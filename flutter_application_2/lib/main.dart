@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/Agents/AgentsScreen.dart';
 import 'package:flutter_application_2/GuideScreen.dart';
 
 void main() {
@@ -32,6 +31,6 @@ class MyApp extends StatelessWidget with _Utilites {
 }
 
 class _Utilites {
-  final Color appBarBack = Color.fromARGB(177, 19, 19, 22);
-  final Color scaffoldback = Color.fromARGB(255, 19, 31, 45);
+  final Color appBarBack = const Color.fromARGB(177, 19, 19, 22);
+  final Color scaffoldback = const Color.fromARGB(255, 19, 31, 45);
 }

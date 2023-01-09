@@ -127,7 +127,7 @@ class _UtilitesGuide {
   final double width = 150;
   final String title = 'VALORANT GUIDE';
   final EdgeInsets textPadding = const EdgeInsets.only(top: 15, left: 25);
-  final EdgeInsets contPadding = const EdgeInsets.all(13.0);
+  final EdgeInsets contPadding = const EdgeInsets.all(8.0);
   final Border contBorder = Border.all(color: Colors.red.shade400, width: 3);
 }
 

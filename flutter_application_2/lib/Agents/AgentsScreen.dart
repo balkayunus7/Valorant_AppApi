@@ -122,7 +122,7 @@ class _AgentScreenState extends State<AgentScreen>
                     return ListView.builder(
                         itemCount: 6,
                         itemBuilder: (context, index) {
-                          return AgentsShimmer();
+                          return AgentsShimmer(width: UtilitesShimmer().width,height:  UtilitesShimmer().height,);
                         });
                   }
                 },
@@ -194,14 +194,19 @@ class _AgentScreenState extends State<AgentScreen>
 class AgentsShimmer extends StatelessWidget with UtilitesShimmer {
   AgentsShimmer({
     super.key,
+    required this.width,
+    required this.height,
   });
   UtilitesShimmer utilitesShimmer = UtilitesShimmer();
+  final double width;
+  final double height;
+
   @override
   Widget build(BuildContext context) {
     var container = Container(
       color: utilitesShimmer.contColor,
-      height: utilitesShimmer.height,
-      width: utilitesShimmer.width,
+      height: height,
+      width: width,
     );
     return Shimmer.fromColors(
       baseColor: utilitesShimmer.baseColor,
