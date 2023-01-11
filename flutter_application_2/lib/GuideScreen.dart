@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Agents/AgentDetailScreen.dart';
 import 'package:flutter_application_2/Agents/AgentsScreen.dart';
+import 'package:flutter_application_2/Maps/MapScreen.dart';
 import 'package:flutter_application_2/Weapons/WeaponScreen.dart';
 
 class GuidePage extends StatefulWidget {
@@ -51,8 +52,17 @@ class _GuidePageState extends State<GuidePage> with _UtilitesGuide {
                     utilitie: weapon,
                   ),
                 ),
-                GuideCard(
-                  utilitie: map,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MapScreen(),
+                        ));
+                  },
+                  child: GuideCard(
+                    utilitie: map,
+                  ),
                 ),
                 GuideCard(
                   utilitie: sprays,
