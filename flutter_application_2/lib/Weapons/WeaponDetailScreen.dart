@@ -1,7 +1,9 @@
+import 'dart:convert';
+import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:drop_shadow_image/drop_shadow_image.dart';
 import 'package:flutter_application_2/Weapons/WeaponScreen.dart';
-
+import 'package:http/http.dart' as http;
 import '../Agents/AgentDetailScreen.dart';
 
 class WeaponDetail extends StatefulWidget {
@@ -9,6 +11,8 @@ class WeaponDetail extends StatefulWidget {
       {required this.displayName,
       required this.displayIcon,
       required this.category,
+      required this.weaponChromoName,
+      required this.weaponChromoImage,
       required this.fireRate,
       required this.magazineSize,
       required this.runSpeedMultiplier,
@@ -25,13 +29,16 @@ class WeaponDetail extends StatefulWidget {
   String equipTimeSeconds;
   String reloadTimeSeconds;
   String firstBulletAccuracy;
+  List weaponChromoName;
+  List weaponChromoImage;
 
   @override
   State<WeaponDetail> createState() => _WeaponDetailState();
 }
 
+_UtilitesMain utilitesMain = _UtilitesMain();
+
 class _WeaponDetailState extends State<WeaponDetail> {
-  _UtilitesMain utilitesMain = _UtilitesMain();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,6 +148,49 @@ class _WeaponDetailState extends State<WeaponDetail> {
                     title: utilitesMain.reloadTimeSeconds,
                     description: widget.runSpeedMultiplier,
                   ),
+                  const SizedBox(height: 50),
+                  SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                      itemCount: widget.weaponChromoImage.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            color: utilitesMain.textRedShadeColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Container(
+                              height: 300,
+                              margin: const EdgeInsets.all(10),
+                              width: 200,
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: Image(
+                                        fit: BoxFit.fitWidth,
+                                        image: NetworkImage(widget
+                                            .weaponChromoImage[index]
+                                            .toString())),
+                                  ),
+                                  Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10.0),
+                                      child: TextWithDynamicTheme(
+                                        text: widget.weaponChromoName[index],
+                                        color: utilitesMain.textWhiteColor,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  )
                 ]),
               ),
             ),
@@ -196,10 +246,7 @@ class _UtilitesRow {
 // * REUSABLE ROW WIDGET
 class _ReusableRow extends StatelessWidget with _UtilitesRow {
   _ReusableRow(
-      {super.key,
-      required this.title,
-      required this.description,
-      required this.color});
+      {required this.title, required this.description, required this.color});
 
   final String title, description;
   final Color color;

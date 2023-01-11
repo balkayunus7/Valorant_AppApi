@@ -15,12 +15,12 @@ class WeaponScreen extends StatefulWidget {
 
 class _WeaponScreenState extends State<WeaponScreen> {
   List weaponList = [];
+  List nameList = [];
   Map? responseData;
-
   @override
   void initState() {
     super.initState();
-    getAgentApi;
+    getAgentApi();
   }
 
   Future getAgentApi() async {
@@ -68,11 +68,18 @@ class _WeaponScreenState extends State<WeaponScreen> {
                     // * RETURN GRIDVIEW
                     return GridView.builder(
                         itemCount: weaponList.length,
-                        itemBuilder: (context, index) {
+                        itemBuilder: (
+                          context,
+                          index,
+                        ) {
                           return InkWell(
                             onTap: () {
                               // * AGENT ROUTER PUSH
-                              Navigator.push(context, _pageRout(index));
+                              Navigator.push(
+                                  context,
+                                  _pageRout(
+                                    index,
+                                  ));
                             },
                             // * CARD WIDGET FOR GRIDVIEW WIDGET
                             child: Card(
@@ -161,9 +168,23 @@ class _WeaponScreenState extends State<WeaponScreen> {
   }
 
   // * Material Page for Agent Details Screen
-  MaterialPageRoute<dynamic> _pageRout(int index) {
+  MaterialPageRoute<dynamic> _pageRout(
+    int index,
+  ) {
+    List name = [];
+    for (var i = 0; i < weaponList.length; i++) {
+      name.add(weaponList[index]["skins"][i]["chromas"][0]["displayName"]
+          .toString());
+    }
+    List image = [];
+    for (var i = 0; i < weaponList.length; i++) {
+      image.add(
+          weaponList[index]["skins"][i]["chromas"][0]["fullRender"].toString());
+    }
     return MaterialPageRoute(
       builder: (context) => WeaponDetail(
+        weaponChromoImage: image,
+        weaponChromoName: name,
         equipTimeSeconds:
             weaponList[index]["weaponStats"]["equipTimeSeconds"].toString(),
         fireRate: weaponList[index]["weaponStats"]["fireRate"].toString(),
