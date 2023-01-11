@@ -9,9 +9,16 @@ import '../Agents/AgentDetailScreen.dart';
 class WeaponDetail extends StatefulWidget {
   WeaponDetail(
       {required this.displayName,
+      required this.costWeapon,
       required this.displayIcon,
+      required this.legDamage,
+      required this.headDamage,
+      required this.rangeStartMeters,
+      required this.rangeEndMeters,
+      required this.bodyDamage,
       required this.category,
       required this.weaponChromoName,
+      required this.weaponCategory,
       required this.weaponChromoImage,
       required this.fireRate,
       required this.magazineSize,
@@ -29,7 +36,15 @@ class WeaponDetail extends StatefulWidget {
   String equipTimeSeconds;
   String reloadTimeSeconds;
   String firstBulletAccuracy;
+  String costWeapon;
+  String rangeStartMeters;
+  String rangeEndMeters;
+  String headDamage;
+  String bodyDamage;
+  String legDamage;
+
   List weaponChromoName;
+  String weaponCategory;
   List weaponChromoImage;
 
   @override
@@ -82,11 +97,19 @@ class _WeaponDetailState extends State<WeaponDetail> {
                 color: utilitesMain.cardColor,
                 child: Column(children: [
                   // * REUSABLE ROW FOR DETAİLS
+                  // * DESCRIPTION WEAPONS
                   ReusableRow(
                     title: utilitesMain.textName,
                     description: widget.displayName,
                   ),
-                  // * DESCRIPTION WEAPONS
+                  ReusableRow(
+                    title: utilitesMain.textCategory,
+                    description: widget.weaponCategory,
+                  ),
+                  ReusableRow(
+                    title: utilitesMain.textCost,
+                    description: widget.costWeapon,
+                  ),
                   ListTile(
                       title: Padding(
                         padding: const EdgeInsets.only(bottom: 5),
@@ -104,7 +127,6 @@ class _WeaponDetailState extends State<WeaponDetail> {
                   Divider(
                     color: utilitesMain.textDividColor,
                   ),
-
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: Align(
@@ -117,16 +139,63 @@ class _WeaponDetailState extends State<WeaponDetail> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 10),
                   // * WEAPON STATS WITH REUSABLE ROWS
+                  // * DAMAGES STATS
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: TextWithDynamicTheme(
+                        text: "Damages",
+                        color: utilitesMain.textRedShadeColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  _ReusableRow(
+                    color: utilitesMain.textWhiteColor,
+                    title: utilitesMain.textBody,
+                    description: widget.bodyDamage.toString(),
+                  ),
+                  _ReusableRow(
+                    color: utilitesMain.textWhiteColor,
+                    title: utilitesMain.textLeg,
+                    description: widget.legDamage.toString(),
+                  ),
+                  _ReusableRow(
+                    color: utilitesMain.textWhiteColor,
+                    title: utilitesMain.textHead,
+                    description: widget.headDamage.toString(),
+                  ),
+                  _ReusableRow(
+                    color: utilitesMain.textWhiteColor,
+                    title: utilitesMain.textStartMeter,
+                    description: widget.rangeStartMeters.toString(),
+                  ),
+                  _ReusableRow(
+                    color: utilitesMain.textWhiteColor,
+                    title: utilitesMain.textEndMeter,
+                    description: widget.rangeEndMeters.toString(),
+                  ),
+                  // * FİRE STATS
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: TextWithDynamicTheme(
+                        text: "FireStats",
+                        color: utilitesMain.textRedShadeColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   _ReusableRow(
                     color: utilitesMain.textWhiteColor,
                     title: utilitesMain.textFirerate,
                     description: widget.fireRate,
-                  ),
-                  _ReusableRow(
-                    color: utilitesMain.textWhiteColor,
-                    title: utilitesMain.equipTimeSeconds,
-                    description: widget.equipTimeSeconds,
                   ),
                   _ReusableRow(
                     color: utilitesMain.textWhiteColor,
@@ -148,7 +217,20 @@ class _WeaponDetailState extends State<WeaponDetail> {
                     title: utilitesMain.reloadTimeSeconds,
                     description: widget.runSpeedMultiplier,
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 20),
+                  // * SKINS STATS
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextWithDynamicTheme(
+                        text: utilitesMain.textSkin,
+                        color: utilitesMain.textRedShadeColor,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: 200,
                     child: ListView.builder(
@@ -158,9 +240,12 @@ class _WeaponDetailState extends State<WeaponDetail> {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Card(
-                            color: utilitesMain.textRedShadeColor,
+                            color: const Color.fromARGB(255, 19, 31, 45),
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                              side: BorderSide(
+                                  width: 2,
+                                  color: utilitesMain.textRedShadeColor),
+                            ),
                             child: Container(
                               height: 300,
                               margin: const EdgeInsets.all(10),
@@ -220,6 +305,11 @@ class _UtilitesMain {
   final String textName = "NAME :";
   final String textDesc = "DESCRIPTION :";
   final String textFirerate = "Fire Rate:";
+  final String textBody = "Fire Rate:";
+  final String textHead = "Head Damage:";
+  final String textLeg = "Body Damage:";
+  final String textEndMeter = "Range Start Meters :";
+  final String textStartMeter = "Range End Meters :";
   final String equipTimeSeconds = "Equip Time Seconds :";
   final String firstBulletAccuracy = "First Bullet Accuracy :";
   final String magazineSize = "Magazine Size :";
@@ -230,6 +320,9 @@ class _UtilitesMain {
   final Color textDividColor = Colors.white;
   final Color cardColor = const Color.fromARGB(255, 19, 31, 45);
   final double fontSizeBig = 20;
+  final String textCost = "COST :";
+  final String textSkin = "SKINS";
+  final String textCategory = "CATEGORY :";
 }
 
 // * Utilites for Extract Widget

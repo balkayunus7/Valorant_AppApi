@@ -147,7 +147,7 @@ class _WeaponScreenState extends State<WeaponScreen> {
     );
   }
 
-// * Text Method for api List
+// * TEXT METHOD FOR API LIST
   Text textPicker(BuildContext context, _UtilitesMain utilitesMain, String name,
       Color color, int array) {
     return Text(
@@ -160,6 +160,7 @@ class _WeaponScreenState extends State<WeaponScreen> {
     );
   }
 
+// * IMAGE METHOD FOR API LIST
   Image imagePicker(int index, String name) {
     return Image(
         color: utilitesMain.whiteOpaColor,
@@ -167,7 +168,7 @@ class _WeaponScreenState extends State<WeaponScreen> {
         image: NetworkImage(weaponList[index][name].toString()));
   }
 
-  // * Material Page for Agent Details Screen
+  // * MATERIAL PAGE FOR AGENT DETAILS SCREEN
   MaterialPageRoute<dynamic> _pageRout(
     int index,
   ) {
@@ -183,6 +184,23 @@ class _WeaponScreenState extends State<WeaponScreen> {
     }
     return MaterialPageRoute(
       builder: (context) => WeaponDetail(
+        bodyDamage: weaponList[index]["weaponStats"]["damageRanges"][0]
+                ["bodyDamage"]
+            .toString(),
+        headDamage: weaponList[index]["weaponStats"]["damageRanges"][0]
+                ["headDamage"]
+            .toString(),
+        legDamage: weaponList[index]["weaponStats"]["damageRanges"][0]
+                ["legDamage"]
+            .toString(),
+        rangeEndMeters: weaponList[index]["weaponStats"]["damageRanges"][0]
+                ["rangeEndMeters"]
+            .toString(),
+        rangeStartMeters: weaponList[index]["weaponStats"]["damageRanges"][0]
+                ["rangeStartMeters"]
+            .toString(),
+        weaponCategory: weaponList[index]["shopData"]["category"].toString(),
+        costWeapon: weaponList[index]["shopData"]["cost"].toString(),
         weaponChromoImage: image,
         weaponChromoName: name,
         equipTimeSeconds:

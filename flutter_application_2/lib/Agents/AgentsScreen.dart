@@ -122,7 +122,10 @@ class _AgentScreenState extends State<AgentScreen>
                     return ListView.builder(
                         itemCount: 6,
                         itemBuilder: (context, index) {
-                          return AgentsShimmer(width: UtilitesShimmer().width,height:  UtilitesShimmer().height,);
+                          return AgentsShimmer(
+                            width: UtilitesShimmer().width,
+                            height: UtilitesShimmer().height,
+                          );
                         });
                   }
                 },
@@ -134,7 +137,7 @@ class _AgentScreenState extends State<AgentScreen>
     );
   }
 
-  // * Text Method for api List
+// * TEXT METHOD FOR API LIST
   Text textPicker(
       BuildContext context, UtilitesCard utilitesCard, String name, int array) {
     return Text(
@@ -147,13 +150,14 @@ class _AgentScreenState extends State<AgentScreen>
     );
   }
 
+// * IMAGE METHOD FOR API LIST
   Image imagePicker(int index, String name) {
     return Image(
         fit: BoxFit.fitHeight,
         image: NetworkImage(agentsList[index][name].toString()));
   }
 
-  // * Material Page for Agent Details Screen
+  // * MATERIAL PAGE FOR AGENT DETAILS SCREEN
   MaterialPageRoute<dynamic> pageRout(int index) {
     return MaterialPageRoute(
       builder: (context) => AgentDetail(
@@ -189,6 +193,7 @@ class _AgentScreenState extends State<AgentScreen>
     );
   }
 }
+// * SHIMMER WIDGET FOR LOADING
 
 // ignore: must_be_immutable
 class AgentsShimmer extends StatelessWidget with UtilitesShimmer {

@@ -180,8 +180,8 @@ class _AgentDetailState extends State<AgentDetail>
       ),
     );
   }
-  // * DROPSHADOW FOR AGENT IMAGE WITH BLUR
 
+  // * DROPSHADOW FOR AGENT IMAGE WITH BLUR
   DropShadowImage dropShadow() {
     return DropShadowImage(
       blurRadius: 1.5,
@@ -336,8 +336,8 @@ class ReusableRow extends StatelessWidget with _UtilitesRow {
   }
 }
 
-// * Utilites for Extract Widget
-// * Reusable Row
+// * UTILITES FOR EXTRACT WIDGET
+// * REUSABLE ROW
 class _UtilitesRow {
   final Color textWhite = Colors.white;
   final Color textDivid = Colors.white;
@@ -347,7 +347,7 @@ class _UtilitesRow {
       const EdgeInsets.only(left: 14, right: 10, top: 10, bottom: 5);
 }
 
-// * Ability Container
+// * ABILITY CONTAINER
 class _UtilitesAbility {
   final Color contMainColor = const Color.fromARGB(50, 0, 0, 0);
   final Color textRedShade = Colors.red.shade400;
@@ -364,7 +364,7 @@ class _UtilitesAbility {
   final String textCost = "Cost: 3000";
 }
 
-// * Text Widget with Dynamic Theme
+// * TEXT WIDGET WITH DYNAMIC THEME
 // ignore: must_be_immutable
 class TextWithDynamicTheme extends StatelessWidget {
   TextWithDynamicTheme({
