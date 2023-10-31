@@ -3,7 +3,6 @@ import 'dart:core';
 import 'package:flutter_application_2/Agents/AgentDetailScreen.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_application_2/GuideScreen.dart';
-import 'package:flutter_application_2/Models/AgentModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,6 +10,7 @@ class AgentScreen extends StatefulWidget {
   const AgentScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _AgentScreenState createState() => _AgentScreenState();
 }
 

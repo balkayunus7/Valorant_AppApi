@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class ValoModel {
   String? uuid;
   String? displayName;

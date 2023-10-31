@@ -25,7 +25,9 @@ class _GuidePageState extends State<GuidePage> with _UtilitesGuide {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 85),
+            padding: const EdgeInsets.symmetric(
+              vertical: 85,
+            ),
             child: Column(
               children: [
                 InkWell(
@@ -134,7 +136,7 @@ class _UtilitesGuide {
   final BorderRadius borderRadius = BorderRadius.circular(8);
   final double textSize = 30;
   final double height = 180;
-  final double width = 150;
+  final double width = 130;
   final String title = 'VALORANT GUIDE';
   final EdgeInsets textPadding = const EdgeInsets.only(top: 15, left: 25);
   final EdgeInsets contPadding = const EdgeInsets.all(8.0);
