@@ -1,10 +1,10 @@
-Valorant App With API
+Valorant App 
 
-![Screenshot_20231031_133546](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/2753e3f3-cfa1-4f89-b091-6c7edef0397c)
-![Screenshot_20231031_133555](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/00f1be17-c9b3-4b65-94f1-636607850e72)
-![Screenshot_20231031_133625](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/2752fbec-1db3-4ef4-b51d-85fbbc213995)
-![Screenshot_20231031_133633](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/9af4420b-ed52-4ad5-b3ca-f19ac81b3d75)
-![Screenshot_20231031_133646](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/6aabc1c3-79ec-4b4f-a9b8-629f03c32e76)
-![Screenshot_20231031_133652](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/68e3f6d5-a9d8-4239-a0d1-e79b72186f6f)
-![Screenshot_20231031_133713](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/1dc17037-ab96-4175-bf2f-93a01e8be5af)
-![Screenshot_20231031_133727](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/87b398dc-3f5b-446f-8866-be9f95793138)
+![Screenshot_20231031_133546 (1)](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/9e88ca56-2dcd-43ca-a571-b48561a569ac)
+![Screenshot_20231031_133555 (1)](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/ac2e8a42-50d9-4e45-acb7-da8ff2c22f47)
+![Screenshot_20231031_133625 (1)](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/7b094650-90fb-480c-b52e-71e39040bb63)
+![Screenshot_20231031_133633 (1)](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/890d025c-a283-445a-a3b2-8b6ee2fb8f40)
+![Screenshot_20231031_133646 (1)](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/240e95a0-2d3d-47cb-a670-b814bdecc580)
+![Screenshot_20231031_133652 (1)](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/681a48ab-d7b1-417c-a588-6e8b59aa10c4)
+![Screenshot_20231031_133713 (1)](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/e59f1aaf-c2d0-47da-8162-9bec94ab8d5c)
+![Screenshot_20231031_133727 (1)](https://github.com/balkayunus7/Valorant_AppApi/assets/98759759/35d393aa-558b-4f92-ad72-fdc20c2a5020)
